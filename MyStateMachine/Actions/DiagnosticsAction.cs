@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyStateMachine
+namespace MyStateMachine.Actions
 {
     public class DiagnosticsAction : Action
     {
