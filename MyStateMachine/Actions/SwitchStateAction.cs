@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MyStateMachine
+﻿namespace MyStateMachine.Actions
 {
     public class SwitchStateAction : Action
     {

@@ -1,41 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace MyStateMachine
 {
     public class StateMachineControl
     {
-        
-        private List<State> listOfStates;
-        private string userAnswer;
+        private string _userAnswer;
         public static State CurrentState { get; set; }
         public static bool TurningOffApplicationFlag { get; set; } = false;
 
         public StateMachineControl()
         {
-            listOfStates = new List<State>();
-            StateMachineConfiguration.StateMachineStartupConfiguration(listOfStates);
+            CurrentState = StateMachineConfiguration.StateMachineStartupConfiguration();
         }
 
-        public void runApp()
+        public void RunApp()
         {
             Console.WriteLine();
             while (!TurningOffApplicationFlag)
             {
                 Console.WriteLine($"Current state: {CurrentState.Description}");
                 Console.WriteLine("Available commands:");
-                foreach (var act in CurrentState.AvalibalActions)
+                for (var i = 0; i < CurrentState.AvalibalActions.Count; i++)
                 {
-                    Console.WriteLine($"{CurrentState.AvalibalActions.IndexOf(act) + 1}. {act.Description}");
+                    var act = CurrentState.AvalibalActions[i];
+                    Console.WriteLine($"{i + 1}. {act.Description}");
                 }
-                userAnswer = Console.ReadLine().ToLower();
-                var action = CurrentState.AvalibalActions.Find(x => x.Command == userAnswer);
+
+                _userAnswer = Console.ReadLine();
+                if (_userAnswer == null)
+                    continue;
+                
+                _userAnswer = _userAnswer?.ToLower();
+                var action = CurrentState.AvalibalActions.FirstOrDefault(x => x.Command == _userAnswer);
                 if (action != null)
-                {
                     action.Execute();
-                }
-                else Console.WriteLine("Wrong command!");
+                else
+                    Console.WriteLine("Wrong command!");
 
                 Console.WriteLine();
             }

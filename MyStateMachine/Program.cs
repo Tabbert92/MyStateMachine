@@ -6,8 +6,8 @@ namespace MyStateMachine
     {
         static void Main(string[] args)
         {
-            StateMachineControl stm = new StateMachineControl();
-            stm.runApp();
+            var stm = new StateMachineControl();
+            stm.RunApp();
         }
     }
 }
